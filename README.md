@@ -19,7 +19,7 @@ This Dockerfile builds a Fedora-based container with Ansible and other Ansible t
 # How to use
 
 1. Install [Docker](https://docs.docker.com/engine/install/) or [Podman](https://podman.io/getting-started/installation.html).
-2. Pull this image from _Docker hub_: `docker pull chzerv/docker-fedora-ansible:32`. Remember, the tag represents the distribution version, so change it according to your needs.
+2. Pull this image from _Docker hub_: `docker pull chzerv/docker-fedora-ansible:latest`. Remember, the tag represents the distribution version, so change it according to your needs.
 3. Run a container:
 
    ```shell
