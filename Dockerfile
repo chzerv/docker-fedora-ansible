@@ -1,4 +1,4 @@
-FROM fedora:32
+FROM fedora:30
 MAINTAINER "Xristos Zervakis"
 
 # Install Ansible via pip so we get the latest version.
