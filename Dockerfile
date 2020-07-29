@@ -2,7 +2,7 @@ FROM fedora:31
 MAINTAINER "Xristos Zervakis"
 
 # Install Ansible via pip so we get the latest version.
-ENV pip_packages "ansible ansible-lint yamllint molecule molecule-containers"
+ENV ansible_packages "ansible ansible-lint yamllint molecule molecule-containers"
 
 RUN dnf -y update && dnf clean all
 
@@ -22,7 +22,7 @@ RUN dnf makecache \
   rm -f /lib/systemd/system/basic.target.wants/* ;\
   rm -f /lib/systemd/system/anaconda.target.wants/*
 
-RUN pip3 install $pip_packages
+RUN pip3 install $ansible_packages
 
 RUN mkdir -p /etc/ansible
 RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
