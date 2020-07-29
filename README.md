@@ -23,7 +23,7 @@ This Dockerfile builds a Fedora-based container with Ansible and other Ansible t
 3. Run a container:
 
    ```shell
-   docker run -d --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro docker-fedora-ansible:32
+   docker run -d --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro docker-fedora-ansible:latest
    ```
 
 4. Run Ansible inside that container:
