@@ -6,7 +6,7 @@ This Dockerfile builds a Fedora-based container with Ansible and other Ansible t
 
 | Branch | Distribution version | Image tag |
 | :----: | :------------------: | :-------: |
-| master |          32          |    32     |
+| master |          32          |  latest   |
 |   31   |          31          |    31     |
 |   30   |          30          |    30     |
 
