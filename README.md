@@ -1,5 +1,7 @@
 # Container image: Fedora Ansible
 
+[![Build Status](https://travis-ci.com/chzerv/docker-fedora-ansible.svg?branch=master)](https://travis-ci.com/chzerv/docker-fedora-ansible)
+
 This Dockerfile builds a Fedora-based container with Ansible and other Ansible testing tools pre-intalled.
 
 # Branches/Tags
