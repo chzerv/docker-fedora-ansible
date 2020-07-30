@@ -1,6 +1,12 @@
 ---
 services: docker
 
+branches:
+  only:
+    - master
+    - 30
+    - 31
+
 before_install:
   # Install docker.
   - sudo apt-get update
