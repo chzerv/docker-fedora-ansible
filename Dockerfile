@@ -1,5 +1,5 @@
 FROM fedora:31
-MAINTAINER "Xristos Zervakis"
+LABEL maintainer "Xristos Zervakis"
 
 # Install Ansible via pip so we get the latest version.
 ENV ansible_packages "ansible ansible-lint yamllint molecule molecule-containers"
