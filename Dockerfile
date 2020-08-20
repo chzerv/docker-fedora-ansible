@@ -22,7 +22,7 @@ RUN dnf makecache \
   rm -f /lib/systemd/system/basic.target.wants/* ;\
   rm -f /lib/systemd/system/anaconda.target.wants/*
 
-RUN pip3 install $ansible_packages
+RUN pip3 install --no-cache $ansible_packages
 
 RUN mkdir -p /etc/ansible
 RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
