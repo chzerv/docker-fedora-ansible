@@ -10,7 +10,6 @@ RUN dnf makecache \
     && dnf -y install \
     systemd \
     python3-pip \
-    ansible \
     which \
     && dnf clean all && \
   (cd /lib/systemd/system/sysinit.target.wants/ ; for i in * ; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i ; done) ; \
