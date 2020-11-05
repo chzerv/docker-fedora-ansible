@@ -1,4 +1,4 @@
-FROM fedora:32
+FROM fedora:latest
 LABEL maintainer "Xristos Zervakis"
 
 # Install Ansible via pip so we get the latest version.
