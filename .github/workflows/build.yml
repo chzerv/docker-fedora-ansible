@@ -45,12 +45,12 @@ jobs:
     needs: test
     strategy:
       matrix:
-        - branch: master
-          tag: latest
-        - branch: 32
-          tag: 32
-        - branch: 31
-          tag: 31
+        - branch: "master"
+          tag: "latest"
+        - branch: '32'
+          tag: '32'
+        - branch: '31'
+          tag: '31'
 
     steps:
       - name: Checkout
