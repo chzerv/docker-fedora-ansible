@@ -7,17 +7,17 @@ This Dockerfile builds a Fedora-based container with Ansible and other Ansible t
 
 # Branches/Tags
 
-| Branch | Distribution version | Image tag |
-| :----: | :------------------: | :-------: |
-| master |          33          |  latest   |
-|   32   |          32          |  32       |
-|   31   |          31          |    31     |
-|   30   |          30          |    30     |
+| Branch | Distribution version | Image tag           |
+| :----: | :------------------: | :-------:           |
+| master | 33                   | latest              |
+| 32     | 32                   | 32                  |
+| 31     | 31                   | 31                  |
+| 30     | 30                   | 30     [deprecated] |
 
 # How to build locally
 
 1. Install [Docker](https://docs.docker.com/engine/install/) or [Podman](https://podman.io/getting-started/installation.html).
-2. Each branch represents a tag (version), with the `master` branch being the latest version. Clone the branch you're interested in. E.g., for fedora32: `git clone https://github.com/chzerv/docker-fedora-ansible.git`.
+2. Each branch represents a tag (version), with the `master` branch being the latest version. Clone the branch you're interested in. E.g., for fedora32: `git clone --branch=32 https://github.com/chzerv/docker-fedora-ansible.git`.
 3. `cd` into the directory and run `docker build -t fedora32-ansible`
 
 # How to use
