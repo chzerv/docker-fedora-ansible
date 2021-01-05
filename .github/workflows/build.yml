@@ -45,18 +45,19 @@ jobs:
     needs: test
     strategy:
       matrix:
-        - branch: "master"
-          tag: "latest"
-        - branch: '32'
-          tag: '32'
-        - branch: '31'
-          tag: '31'
+        config:
+          - branch: "master"
+            tag: "latest"
+          - branch: '32'
+            tag: '32'
+          - branch: '31'
+            tag: '31'
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          path: ${{ matrix.branch }}
+          path: ${{ matrix.config.branch }}
 
       - name: Setup QEMU.
         uses: docker/setup-qemu-action@v1
@@ -85,4 +86,4 @@ jobs:
           file: Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ github.repository }}:${{ matrix.tag }}
+          tags: ${{ github.repository }}:${{ matrix.config.tag }}
