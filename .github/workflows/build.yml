@@ -22,105 +22,79 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout.
-      uses: actions/checkout@v2
+    steps:
+      - name: Checkout.
+        uses: actions/checkout@v2
 
-    - name: Build the image.
-      run: docker build -t docker-ansible .
+      - name: Build the image.
+        run: docker build -t docker-ansible .
 
-    - name: Create a container from the built image.
-      run: docker run --name instance -d --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro docker-ansible
+      - name: Create a container from the built image.
+        run: docker run --name instance -d --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro docker-ansible
 
-    - name: Verify systemd is working.
-      run: docker exec --tty instance systemctl list-unit-files --no-pager
+      - name: Verify systemd is working.
+        run: docker exec --tty instance systemctl list-unit-files --no-pager
 
-    - name: Verify Ansible is working.
-      run: docker exec --tty instance ansible --version
+      - name: Verify Ansible is working.
+        run: docker exec --tty instance ansible --version
 
-  # Build and release the image - latest tag.
-  release-latest:
-    name: Release latest tag
+  # Build and push the image to Docker Hub.
+  build-n-push:
+    name: Build and push to Docker Hub.
     runs-on: ubuntu-latest
     needs: test
-    if: github.ref == 'refs/heads/master'
 
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - uses: docker/setup-qemu-action@v1
-    - uses: docker/setup-buildx-action@v1
+      - name: Setup QEMU.
+        uses: docker/setup-qemu-action@v1
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Setup Docker Buildx.
+        uses: docker/setup-buildx-action@v1
 
-    - name: Build and push image [master branch]
-      uses: docker/build-push-action@v2
-      with:
-        context: ./
-        file: Dockerfile
-        platforms: linux/amd64
-        push: true
-        tags: ${{ github.repository }}:latest
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
-  # Build and release the image - 32 tag.
-  release-32:
-    name: Release 32 tag
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/32'
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Build and push image [latest tag]
+        if: github.ref == 'refs/heads/master'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ github.repository }}:latest
 
-    - uses: docker/setup-qemu-action@v1
-    - uses: docker/setup-buildx-action@v1
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push image [32 tag]
+        if: github.ref == 'refs/heads/32'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ github.repository }}:32
 
-    - name: Build and push image [master branch]
-      uses: docker/build-push-action@v2
-      with:
-        context: ./
-        file: Dockerfile
-        platforms: linux/amd64
-        push: true
-        tags: ${{ github.repository }}:32
-
-  # Build and release the image - 31 tag.
-  release-31:
-    name: Release 31 tag
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/31'
-
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - uses: docker/setup-qemu-action@v1
-    - uses: docker/setup-buildx-action@v1
-
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-    - name: Build and push image [master branch]
-      uses: docker/build-push-action@v2
-      with:
-        context: ./
-        file: Dockerfile
-        platforms: linux/amd64
-        push: true
-        tags: ${{ github.repository }}:31
+      - name: Build and push image [31 tag]
+        if: github.ref == 'refs/heads/31'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ github.repository }}:31
