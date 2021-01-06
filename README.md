@@ -1,5 +1,6 @@
 # Fedora 33 Image for Ansible Testing
 
+![Build](https://github.com/chzerv/docker-fedora-ansible/workflows/Build/badge.svg?branch=master)
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/chzerv/docker-fedora-ansible)
 
 This Dockerfile builds a Fedora 33 based container, capable to use `systemd`, with Ansible and Ansible 
