@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build the image.
-        run: docker build -t docker-ansible-33
+        run: docker build -t docker-ansible-33 .
 
       - name: Create a container from the built image.
         run: docker run --name instance -d --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro docker-ansible-33
