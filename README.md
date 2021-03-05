@@ -1,5 +1,9 @@
 # Fedora 33 Image for Ansible Testing
 
+>**NOTE**: This image is now  **DEPRECATED**: Use:
+>+ [fedora32-systemd-ansible](https://github.com/chzerv/fedora32-systemd-ansible)
+>+ [fedora33-systemd-ansible](https://github.com/chzerv/fedora33-systemd-ansible)
+
 ![Build](https://github.com/chzerv/docker-fedora-ansible/workflows/Build/badge.svg?branch=master)
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/chzerv/docker-fedora-ansible)
 
